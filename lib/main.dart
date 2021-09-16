@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:future_builder_example/page2.dart';
+import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 
 void main() {
   runApp(MyApp());
@@ -29,11 +32,21 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
+  final url = Uri.parse("https://api.github.com/users");
+
+  /// promise way
+  void _getGithubUsers() {
+    getGithubUsers().then((response) => {
+        Navigator.push(context, MaterialPageRoute(builder: (_) => Page2(statusCode: response.statusCode)))
     });
   }
+
+  /// async await way
+  // void _getGithubUsers() async {
+  //   final response = await getGithubUsers();
+  //   Navigator.push(context, MaterialPageRoute(builder: (_) => Page2(statusCode: response.statusCode)));
+  // }
+
 
   @override
   Widget build(BuildContext context) {
@@ -56,10 +69,16 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: _getGithubUsers,
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ),
     );
+  }
+
+  Future<Response> getGithubUsers() async {
+    final response = await http.get(url);
+    print(response.statusCode);
+    return response;
   }
 }
