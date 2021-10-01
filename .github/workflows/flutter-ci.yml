@@ -31,7 +31,7 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           channel: 'stable'
-      - name: Flutter pub get
+      - name: Build Android
         run: |
           flutter pub get
           flutter build apk
@@ -57,15 +57,15 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           channel: 'stable'
-      - name: Flutter pub get
+      - name: Build iOS
         run: |
           flutter clean
           flutter pub get
           flutter build ios --no-codesign
           ls -la
-#       - uses: actions/upload-artifact@v2
-#         with: 
-#           name: archive apk
-#           path: build/app/outputs/flutter-apk/app-release.apk 
+      - uses: actions/upload-artifact@v2
+        with: 
+          name: archive no code signed .app
+          path: build/ios/iphoneos/Runner.app
     
     
