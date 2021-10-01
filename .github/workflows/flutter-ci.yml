@@ -34,7 +34,7 @@ jobs:
         run: |
           flutter pub get
           flutter build apk
-      - uses: actions/upload-artifact@v1
+      - uses: actions/upload-artifact@v2
         with: 
-          name: archieve apk
+          name: archive  apk
           path: build/app/outputs/apk/debug/app-debug.apk
