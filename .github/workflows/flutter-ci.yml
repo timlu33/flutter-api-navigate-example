@@ -61,7 +61,7 @@ jobs:
         run: |
           flutter clean
           flutter pub get
-          flutter build ios
+          flutter build ios --no-codesign
           ls -la
 #       - uses: actions/upload-artifact@v2
 #         with: 
